@@ -1,0 +1,29 @@
+
+
+#Security
+- Controller und Templates nutzen den SECURITY VOTER, hat der CURRENTLY AUTHENTICATED USER Zugriff auf edit, dann darf der Micropost editiert werden
+
+BEISPIEL IM CONTROLLER -> gewährt Zugriff für currently authenticated user,
+ * @Security ("is_granted('edit', microPost)", message="Access denied")
+
+- im eigenen Voter für MicroPost können wir noch mal explizit, das ganze überschreiben, so dass bspw. erweiterte Rollen (Admin) auch editieren können
+BEispiel im VOTER
+
+  // ROLE ADMIN , WE DECIDE WITH THE ACCESSDECIONMANAGER, HE GRANT HIM ALL THE POSSIBLE ACTIONS TO EDITION/DELETING POSTS
+        if($this->accessDecisionManager->decide($token,[User::ROLE_ADMIN]))
+        {
+            return true;
+        }
+
+
+
+
+
+//currently Token User kann man mit dem TokenStorageInterface abfragen - bspw.
+ public function add(Request $request,TokenStorageInterface $tokenStorage)
+    {
+	$currentUser = $tokenStorage->getToken()->getUser()
+	...
+    }
+
+bund 

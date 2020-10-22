@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+        <p>ID: {{ id }}</p>
+        <h3>Title: {{ post.title|upper }}</h3>
+        <p>{{ post.text }}</p>
+        <p>Price: {{  300.5555534242444 |price }}</p>
+        <p>Local: {{ local }}</p>
+{#        <p>{{ post.date |date("m/d/Y") }}</p>#}
+        <p>Message: {{ message }}</p>
+
+        <p>Env: {{ app.environment }}</p>
+        <p>User: {{ app.user }}</p>
+        <p>Request: {{ app.request }}</p>
+        <p>Session started: {{ app.session.started }}</p>
+        <p>Debug: {{ app.debug }}</p>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+swiftmailer:
+    url: '%env(MAILER_URL)%'
+    spool: { type: 'memory' }
+
+# php bin/console swiftmailer:spool:send --env=prod --message-limit=10 -> perhaps configurate a with cronjobs in production
+#    spool:
+#        type: file
+#        path: '%kernel.project_dir%/var/spool'
+

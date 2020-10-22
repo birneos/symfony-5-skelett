@@ -1,0 +1,18 @@
+<div class="media text-muted pt-3">
+    {% set initials = post.user.fullname|split(' ') %}
+    <img data-src="holder.js/64x64?text={{ attribute(initials,0)|first }}{{ attribute(initials,1)|first }}&bg=e83e8c&fg=fff&size=15"
+         alt="" class="mr-4 rounded">
+    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <span class="d-block">
+                    <a href="{{ path('micro_post_user',{'username': post.user.username }) }}">
+                    <strong class="text-gray-dark">
+                        @{{ post.user.username }}
+                    </strong>
+                    </a>
+
+                    <small>·{{ post.time|date("d.m.Y") }}</small></span>
+        <a href="{{ path('micro_post_post',{'id': post.id}) }}"> {{ post.id }} </a>{{ post.text }}
+    </p>
+</div>
+{# <p><a href="{{ path('blog_show',{'id':id }) }}">ID: {{ id }}</a></p> #}
+{# <h3>Title: {{ post.text }}</h3> #}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NotificationController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="card">
+
+    {% if notifications|length %}
+    <div class="card-body">
+        <h5>Unread Notification</h5>
+    </div>
+
+    <ul class="list-group list-group-flush">
+
+        <li class="list-group-item">
+            <a class="btn btn-block btn-default btn-link btn-outline-info" href="{{ path('notification_acknowledge_all') }}">
+                Mark all as read
+            </a>
+        </li>
+
+
+        {% for notification in notifications %}
+
+            {% if notification is like %}
+            <li class="list-group-item">
+                <a href="{{ path('micro_post_user',{ 'username': notification.likedBy.username }) }}">{{ notification.likedBy.username  }}</a> like Post [
+                <a href="{{ path('micro_post_post',{'id': notification.microPost.id }) }}">{{  notification.microPost.text|slice(0,25) }}...</a>]
+                <a href="{{ path('notification_acknowledge',{'id': notification.id }) }}" class="btn btn-sm btn-primary float-right">OK</a>]
+
+            {% endif %}
+
+            </li>
+        {% endfor %}
+
+    </ul>
+
+    {% else %}
+        <div class="card-body">
+            You've no notifications
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

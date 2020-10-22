@@ -1,0 +1,40 @@
+{
+  "name": "symfony-01",
+  "version": "1.0.0",
+  "description": "Symfony Test System",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@fortawesome/free-brands-svg-icons": "^5.14.0",
+    "@fortawesome/free-regular-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@popperjs/core": "^2.4.4",
+    "@symfony/webpack-encore": "^0.30.2",
+    "bootstrap": "^4.5.2",
+    "copy-webpack-plugin": "^6.1.0",
+    "core-js": "^3.0.0",
+    "file-loader": "^6.1.0",
+    "holderjs": "^2.9.7",
+    "jquery": "^3.5.1",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.0",
+    "webpack-notifier": "^1.8.0"
+  },
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "popper.js": "^1.16.1"
+  }
+}

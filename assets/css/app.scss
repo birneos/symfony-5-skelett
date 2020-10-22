@@ -1,0 +1,25 @@
+@import "~bootstrap/scss/bootstrap";
+
+@import "abstracts/variables";
+@import "abstracts/mixins";
+@import "base/base";
+@import "layout/header";
+@import "layout/grid";
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+//@import '~@fortawesome/fontawesome-free/scss/regular';
+//@import '~@fortawesome/fontawesome-free/scss/solid';
+//@import '~@fortawesome/fontawesome-free/scss/brands';
+
+@import "pages/home";
+//@import "icon-font.css";
+
+
+// customize some Bootstrap variables
+
+$primary: darken(#428bca, 50%);
+
+
+
+
+

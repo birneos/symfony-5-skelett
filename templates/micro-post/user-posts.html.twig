@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  Micropost {% endblock %}
+
+{% block body %}
+{#    {% for message in app.flashes('notice') %}#}
+{#        <div class="alert alert-success">{{ message }}</div>#}
+{#    {% endfor %}#}
+
+    <div class="card-group py-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.fullname }}
+                <small class="text-muted">. @{{ user.username }}</small>
+                </h5>
+
+                {% if is_granted('ROLE_USER') and user != app.user %}
+                    {% if user.follower.contains(app.user) == false %}
+                        <a href="{{ path('following_follow',{'id': user.id}) }}" class="btn btn-outline-primary">Follow</a>
+                    {% else %}
+                        <a href="{{ path('following_unfollow',{'id':user.id}) }}" class="btn btn-outline-primary">Unfollow</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card-group py-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 >{{ 'Followers'|trans({'count': user.follower |length }) }}
+                  <ul class="list-group list-group-flush">
+                      {% for follower in user.follower %}
+                          <a href="{{ path('micro_post_user',{'username': follower.username }) }}">@{{ follower.username }}</a>
+
+                      {% endfor %}
+                      </ul>
+                </h5>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 >{{ 'Following'|trans({'count': user.following |length }) }}
+                    <ul class="list-group list-group-flush">
+                        {% for follower in user.following %}
+                            <a href="{{ path('micro_post_user',{'username': follower.username }) }}">@{{ follower.username }}</a>
+
+                        {% endfor %}
+                    </ul>
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    {% for id,post in posts %}
+
+        <div class="row">
+            <div class="col-1-of-2">
+                <a href="{{ path('micro_post_post', {'id': post.id }) }}">
+                </a>
+                {{ include('micro-post/raw-post.html.twig', {'post': post }) }}
+            </div>
+
+            <div class="col-1-of-2">  <small class="d-block text-right mt-3">
+                    {% if is_granted('edit', post) %}
+                      <a href="{{ path('micro_post_edit',{'id': post.id}) }}">Edit</a>
+                    {% endif %}
+
+                    {% if is_granted('delete',post) %}
+                      <a href="{{ path('micro_post_delete',{'id': post.id}) }} " title="Löschen">Delete </a>
+                    {% endif %}
+
+                </small></div>
+
+
+
+
+        </div>
+
+    {% endfor %}
+{% endblock %}
