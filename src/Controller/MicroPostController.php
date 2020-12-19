@@ -76,8 +76,7 @@ class MicroPostController extends AbstractController
         RouterInterface $router,
         FlashBagInterface $flashBag,
         AuthorizationCheckerInterface $authorizationChecker
-    )
-    {
+    ) {
 
         $this->twig = $twig;
         $this->microPostRepository = $microPostRepository;
@@ -103,22 +102,19 @@ class MicroPostController extends AbstractController
         $usersToFollow = [];
 
 
-        if($currentUser instanceof User){
+        if ($currentUser instanceof User) {
 
             $post = $this->microPostRepository->findAllByUser($currentUser->getFollowing());
 
-            $usersToFollow = (count($post)===0)? $userRepository->findUserGteFivePosts($currentUser) : [];
+            $usersToFollow = (count($post) === 0) ? $userRepository->findUserGteFivePosts($currentUser) : [];
+        } else {
 
-
-        }else{
-
-            $post = $this->microPostRepository->findBy([],['time'=>'DESC']);
-
+            $post = $this->microPostRepository->findBy([], ['time' => 'DESC']);
         }
 
         $html = $this->twig->render('micro-post/index.html.twig', [
             'posts' => $post,
-            'usersToFollow' =>$usersToFollow
+            'usersToFollow' => $usersToFollow
         ]);
         return new Response($html);
     }
@@ -134,7 +130,7 @@ class MicroPostController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function add(Request $request,TokenStorageInterface $tokenStorage)
+    public function add(Request $request, TokenStorageInterface $tokenStorage)
     {
         $user = $tokenStorage->getToken()->getUser();
         $micropost = new MicroPost();
@@ -147,7 +143,7 @@ class MicroPostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($micropost);
             $this->entityManager->flush();
-            $this->flashBag->add('notice','Micro post was added');
+            $this->flashBag->add('notice', 'Micro post was added');
 
             return new RedirectResponse(
                 $this->router->generate('micro_post_index')
@@ -168,7 +164,7 @@ class MicroPostController extends AbstractController
         $this->entityManager->remove($microPost);
         $this->entityManager->flush();
 
-        $this->flashBag->add('notice','Micro post was deleted');
+        $this->flashBag->add('notice', 'Micro post was deleted');
 
         return new RedirectResponse(
             $this->router->generate('micro_post_index')
@@ -184,17 +180,17 @@ class MicroPostController extends AbstractController
     public function edit(MicroPost $microPost, Request $request)
     {
 
-//        $this->denyAccessUnlessGranted('edit', $microPost);
-//        if( !$this->authorizationChecker->isGranted('edit',$microPost))
-//        {
-//            throw new UnauthorizedHttpException();
-//        }
+        //        $this->denyAccessUnlessGranted('edit', $microPost);
+        //        if( !$this->authorizationChecker->isGranted('edit',$microPost))
+        //        {
+        //            throw new UnauthorizedHttpException();
+        //        }
 
         $form = $this->formFactory->create(MicroPostType::class, $microPost);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           # $this->entityManager->persist($microPost);
+            # $this->entityManager->persist($microPost);
             $this->entityManager->flush();
 
             return new RedirectResponse(
@@ -221,7 +217,7 @@ class MicroPostController extends AbstractController
         #$post = $this->microPostRepository->find($id);
         $post = $this->microPostRepository->find($microPost);
 
-        return new Response($this->twig->render('micro-post/post.html.twig',[
+        return new Response($this->twig->render('micro-post/post.html.twig', [
             'post' => $post
         ]));
     }
@@ -235,10 +231,10 @@ class MicroPostController extends AbstractController
     {
         $html = $this->twig->render('micro-post/user-posts.html.twig', [
             'posts' => $this->microPostRepository->findBy(
-                ['user'=> $user ],
-                ['time'=>'DESC' ]
+                ['user' => $user],
+                ['time' => 'DESC']
             ),
-//        'posts' => $user->getPosts(),
+            //        'posts' => $user->getPosts(),
             'user' => $user
         ]);
         return new Response($html);

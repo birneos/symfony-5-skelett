@@ -17,13 +17,12 @@ class MicroPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('text', TextareaType::class,['label'=>false])
-            ->add('save',SubmitType::class);
+            ->add('text', TextareaType::class, ['label' => false])
+            ->add('save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class'=>MicroPost::class]);
+        $resolver->setDefaults(['data_class' => MicroPost::class]);
     }
-
 }
